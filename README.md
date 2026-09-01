@@ -127,9 +127,13 @@ Use these to preview each poster before the real day arrives.
 - **Poster images** — AI-generated decorative backgrounds matching the brand's
   festival gold/cyan palette. The greeting text is rendered in HTML (not baked into
   the image) so it stays sharp and accessible.
-- **Placeholder business images** — `static/img/*.svg` are brand-gradient placeholders
-  (the original site's photography wasn't extractable). Replace them with real
-  property / team images if you wish; no code changes needed.
+- **Website / founder / award images** — `static/img/*` now uses real photography:
+  genuine Mr. Adityaram founder portraits (`founder-*.jpg`), the real Galatta Crown
+  2022 event moment (`award-galatta.jpg`), and real Adityaram property/project
+  photography for the Group of Companies and Honours cards, plus the hero/about
+  images. These were sourced from the public web and resized/optimised to keep the
+  site light. Replace any of them with your own high-res assets — no code changes
+  needed as long as you keep the same filenames.
 - **`OpenSans-Light`** — mapped to Open Sans with the light/regular/600/700 weights
   available from Google Fonts; the light weight is approximated by the `400` weight with
   normal letter-spacing (closest available per the extracted family list).

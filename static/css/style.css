@@ -299,6 +299,92 @@ h1, h2, h3, h4 {
 }
 
 /* =====================================================================
+   Founder & CMD
+   ===================================================================== */
+.founder {
+  background: #fbf8f1;
+}
+
+.founder-photo {
+  aspect-ratio: 3 / 4;
+}
+
+.founder-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--sp-2);
+}
+
+.founder-role {
+  display: block;
+  color: var(--c-secondary);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-bottom: var(--sp-25);
+}
+
+.founder-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-20);
+  margin-top: var(--sp-35);
+}
+
+.founder-gallery img {
+  border-radius: var(--r-10);
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  box-shadow: var(--shadow-soft);
+}
+
+/* =====================================================================
+   Award feature
+   ===================================================================== */
+.award-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-45);
+  align-items: center;
+  background: var(--c-white);
+  border: 1px solid var(--c-grey);
+  border-radius: var(--r-10);
+  overflow: hidden;
+  margin-bottom: var(--sp-50);
+  box-shadow: var(--shadow-soft);
+}
+
+.award-feature-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.award-feature-copy {
+  padding: var(--sp-45) var(--sp-35);
+}
+
+.award-feature-copy .eyebrow {
+  color: var(--c-secondary);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.award-feature-copy h3 {
+  font-size: 1.5rem;
+  margin: var(--sp-20) 0;
+  font-weight: 700;
+}
+
+.award-feature-copy p {
+  color: var(--c-ink-2);
+}
+
+/* =====================================================================
    Section headers
    ===================================================================== */
 .section {
@@ -364,6 +450,23 @@ h1, h2, h3, h4 {
   font-family: var(--font-serif);
   font-size: 1.2rem;
   font-weight: var(--w-700);
+  overflow: hidden;
+}
+
+.company-card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-500);
+}
+
+.company-card:hover .thumb img {
+  transform: scale(1.05);
+}
+
+.company-card .thumb.company-studio {
+  background: linear-gradient(135deg, var(--c-secondary), #3a3a3a);
+  text-align: center;
 }
 
 .company-card .body {
@@ -758,12 +861,16 @@ h1, h2, h3, h4 {
    ===================================================================== */
 @media (max-width: 900px) {
   .hero-grid,
-  .contact-grid {
+  .contact-grid,
+  .award-feature {
     grid-template-columns: 1fr;
   }
   .company-grid,
   .awards-grid,
   .honours-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .founder-gallery {
     grid-template-columns: 1fr 1fr;
   }
 }
