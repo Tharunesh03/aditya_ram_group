@@ -1,0 +1,784 @@
+/* =====================================================================
+   Adityaram Group — brand styles
+   Rooted in the designlang extraction of www.adityaramgroup.com
+   Colour  : primary #e0c481 · secondary #00a0d2 · accent #fde482
+             neutrals #fff #000 #3a3a3a #292929 #ccc #3c3c3c
+   Type    : OpenSans-Light, Times New Roman, Arial, Sifonn-Basic
+   Spacing : 2 20 25 28 35 45 50 60 68 182 205 444
+   Radii   : 1px 10px        Motion: 200ms 300ms 500ms
+   ===================================================================== */
+
+:root {
+  /* colour tokens */
+  --c-primary: #e0c481;      /* warm brand gold   */
+  --c-primary-soft: #fde482; /* accent light gold */
+  --c-secondary: #00a0d2;    /* brand cyan        */
+  --c-black: #000000;
+  --c-ink: #292929;
+  --c-ink-2: #3a3a3a;
+  --c-ink-3: #3c3c3c;
+  --c-grey: #cccccc;
+  --c-white: #ffffff;
+
+  /* typography */
+  --font-sans: "Open Sans", "Sifonn-Basic", Arial, "Times New Roman", sans-serif;
+  --font-serif: "Times New Roman", Times, serif;
+  --w-400: 400;
+  --w-500: 500;
+  --w-600: 600;
+  --w-700: 700;
+
+  /* spacing scale (snapped to extraction) */
+  --sp-2: 2px;
+  --sp-20: 20px;
+  --sp-25: 25px;
+  --sp-28: 28px;
+  --sp-35: 35px;
+  --sp-45: 45px;
+  --sp-50: 50px;
+  --sp-60: 60px;
+  --sp-68: 68px;
+  --sp-182: 182px;
+  --sp-205: 205px;
+  --sp-444: 444px;
+
+  /* radii */
+  --r-1: 1px;
+  --r-10: 10px;
+
+  /* motion */
+  --t-200: 200ms;
+  --t-300: 300ms;
+  --t-500: 500ms;
+
+  /* shadows */
+  --shadow-soft: 0 2px 25px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* ----- reset / base ----- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: var(--w-400);
+  color: var(--c-ink);
+  background: var(--c-white);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  color: var(--c-ink);
+  /* Title Case headings — rendered in the copy */
+}
+
+.container {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+}
+
+/* =====================================================================
+   Header / navigation
+   ===================================================================== */
+.site-header {
+  background: var(--c-white);
+  border-bottom: 1px solid var(--c-grey);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-20);
+  padding: var(--sp-20) 0;
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-weight: var(--w-700);
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  color: var(--c-ink);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-20);
+}
+
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-10);
+  background: linear-gradient(135deg, var(--c-primary), var(--c-primary-soft));
+  color: var(--c-black);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-serif);
+  font-weight: var(--w-700);
+  font-size: 1.1rem;
+}
+
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-25);
+  flex-wrap: wrap;
+}
+
+.main-nav a {
+  font-size: 0.9rem;
+  color: var(--c-ink-2);
+  font-weight: var(--w-600);
+  transition: color var(--t-200);
+}
+
+.main-nav a:hover {
+  color: var(--c-secondary);
+}
+
+/* =====================================================================
+   Hero strip — awards ticker
+   ===================================================================== */
+.awards-strip {
+  background: linear-gradient(120deg, var(--c-primary), var(--c-primary-soft));
+  color: var(--c-black);
+  overflow: hidden;
+  padding: var(--sp-28) 0;
+}
+
+.awards-scroll {
+  display: flex;
+  gap: var(--sp-50);
+  white-space: nowrap;
+  animation: scroll-x 30s linear infinite;
+  width: max-content;
+}
+
+.awards-item {
+  font-weight: var(--w-600);
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-20);
+}
+
+.awards-item strong {
+  font-weight: var(--w-700);
+}
+
+@keyframes scroll-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* =====================================================================
+   Hero
+   ===================================================================== */
+.hero {
+  background: var(--c-white);
+  padding: var(--sp-60) 0;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--sp-45);
+  align-items: center;
+}
+
+.hero-copy .eyebrow {
+  color: var(--c-secondary);
+  font-weight: var(--w-600);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.hero-copy h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  margin: var(--sp-20) 0;
+  font-weight: var(--w-700);
+}
+
+.hero-copy p {
+  color: var(--c-ink-2);
+  font-size: 1.05rem;
+  max-width: 52ch;
+}
+
+.hero-cta {
+  margin-top: var(--sp-35);
+  display: flex;
+  gap: var(--sp-20);
+  flex-wrap: wrap;
+}
+
+.hero-visual {
+  border-radius: var(--r-10);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.hero-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+/* =====================================================================
+   Buttons
+   ===================================================================== */
+.btn {
+  display: inline-block;
+  padding: var(--sp-28) var(--sp-35);
+  border-radius: var(--r-10);
+  font-family: var(--font-sans);
+  font-weight: var(--w-700);
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--t-300);
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--c-primary);
+  color: var(--c-black);
+}
+
+.btn-primary:hover {
+  background: var(--c-primary-soft);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--c-ink);
+  border-color: var(--c-primary);
+}
+
+.btn-outline:hover {
+  background: var(--c-primary);
+  color: var(--c-black);
+}
+
+/* =====================================================================
+   Section headers
+   ===================================================================== */
+.section {
+  padding: var(--sp-68) 0;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: var(--sp-50);
+}
+
+.section-head .eyebrow {
+  color: var(--c-secondary);
+  font-weight: var(--w-600);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.section-head h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  margin-top: var(--sp-20);
+  font-weight: var(--w-700);
+}
+
+.section-head p {
+  margin-top: var(--sp-20);
+  color: var(--c-ink-2);
+}
+
+/* =====================================================================
+   Group of companies
+   ===================================================================== */
+.companies {
+  background: #fbf8f1;
+}
+
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-35);
+}
+
+.company-card {
+  background: var(--c-white);
+  border: 1px solid var(--c-grey);
+  border-radius: var(--r-10);
+  overflow: hidden;
+  transition: transform var(--t-300), box-shadow var(--t-300);
+}
+
+.company-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+}
+
+.company-card .thumb {
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, var(--c-primary), var(--c-secondary));
+  display: grid;
+  place-items: center;
+  color: var(--c-white);
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: var(--w-700);
+}
+
+.company-card .body {
+  padding: var(--sp-25);
+}
+
+.company-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: var(--sp-20);
+}
+
+.company-card .tag {
+  font-size: 0.8rem;
+  color: var(--c-secondary);
+  font-weight: var(--w-600);
+}
+
+/* =====================================================================
+   Awards & accolades
+   ===================================================================== */
+.awards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-35);
+}
+
+.award-card {
+  border: 1px solid var(--c-grey);
+  border-radius: var(--r-10);
+  padding: var(--sp-35) var(--sp-25);
+  text-align: center;
+  background: var(--c-white);
+  transition: box-shadow var(--t-300);
+}
+
+.award-card:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+.award-card .seat {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--sp-20);
+  border-radius: var(--r-10);
+  display: grid;
+  place-items: center;
+  color: var(--c-black);
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: var(--w-700);
+  background: linear-gradient(135deg, var(--c-primary), var(--c-primary-soft));
+}
+
+.award-card h3 {
+  font-size: 1rem;
+  margin-bottom: var(--sp-20);
+  line-height: 1.4;
+}
+
+.award-card .meta {
+  color: var(--c-ink-3);
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+}
+
+/* =====================================================================
+   Honours / portfolio
+   ===================================================================== */
+.honours-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-35);
+}
+
+.honour-card {
+  border-radius: var(--r-10);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16 / 11;
+  border: 1px solid var(--c-grey);
+}
+
+.honour-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-500);
+}
+
+.honour-card:hover img {
+  transform: scale(1.05);
+}
+
+.honour-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--sp-25);
+  color: var(--c-white);
+}
+
+.honour-card .overlay h3 {
+  color: var(--c-white);
+  font-size: 1.1rem;
+  margin-bottom: var(--sp-20);
+}
+
+.honour-card .overlay span {
+  font-size: 0.85rem;
+  opacity: 0.92;
+}
+
+.honour-card .overlay a {
+  margin-top: var(--sp-20);
+  color: var(--c-primary-soft);
+  font-weight: var(--w-600);
+}
+
+/* =====================================================================
+   Contact
+   ===================================================================== */
+.contact {
+  background: linear-gradient(135deg, var(--c-primary), var(--c-primary-soft));
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-45);
+  align-items: center;
+}
+
+.contact-form {
+  background: var(--c-white);
+  border-radius: var(--r-10);
+  padding: var(--sp-45) var(--sp-35);
+  box-shadow: var(--shadow-soft);
+}
+
+.contact-form h2 {
+  margin-bottom: var(--sp-25);
+}
+
+.contact-form .note {
+  color: var(--c-ink-2);
+  margin-bottom: var(--sp-35);
+}
+
+.field {
+  margin-bottom: var(--sp-25);
+}
+
+.field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: var(--w-600);
+  margin-bottom: var(--sp-20);
+  color: var(--c-ink-2);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: var(--sp-28) var(--sp-25);
+  border: 1px solid var(--c-grey);
+  border-radius: var(--r-1);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--c-ink);
+  background: var(--c-white);
+  transition: border-color var(--t-200);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--c-secondary);
+}
+
+.btn-submit {
+  width: 100%;
+  background: var(--c-ink);
+  color: var(--c-primary-soft);
+}
+
+.btn-submit:hover {
+  background: var(--c-black);
+  color: var(--c-primary);
+}
+
+.contact-details h2 {
+  margin-bottom: var(--sp-35);
+  font-size: 1.6rem;
+}
+
+.contact-block {
+  display: flex;
+  gap: var(--sp-20);
+  margin-bottom: var(--sp-35);
+}
+
+.contact-block .ic {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-10);
+  background: var(--c-white);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--c-secondary);
+  font-weight: var(--w-700);
+}
+
+.contact-block h4 {
+  font-size: 0.95rem;
+  margin-bottom: var(--sp-2);
+}
+
+.contact-block p {
+  color: var(--c-black);
+  font-size: 0.95rem;
+}
+
+/* =====================================================================
+   Footer
+   ===================================================================== */
+.site-footer {
+  background: var(--c-ink);
+  color: var(--c-white);
+  padding: var(--sp-50) 0;
+  text-align: center;
+}
+
+.site-footer p {
+  color: #cccccc;
+  font-size: 0.9rem;
+}
+
+.site-footer .brand {
+  color: var(--c-white);
+  font-size: 1.1rem;
+  justify-content: center;
+  margin-bottom: var(--sp-20);
+}
+
+/* =====================================================================
+   Festival celebration poster overlay
+   ===================================================================== */
+.festival-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-25);
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.festival-overlay.is-open {
+  display: flex;
+}
+
+.festival-card {
+  position: relative;
+  width: min(720px, 94vw);
+  border-radius: var(--r-10);
+  overflow: hidden;
+  background: var(--c-white);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  animation: pop-in var(--t-500) ease;
+  max-height: 92vh;
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.festival-card .poster {
+  height: 320px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.festival-card .poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+}
+
+.festival-card .poster .greet {
+  position: absolute;
+  left: var(--sp-35);
+  right: var(--sp-35);
+  bottom: var(--sp-35);
+  color: var(--c-white);
+  z-index: 1;
+}
+
+.festival-card .poster .greet .emoji {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: var(--sp-20);
+}
+
+.festival-card .poster .greet h2 {
+  color: var(--c-white);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  margin-bottom: var(--sp-2);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.festival-card .poster .greet span {
+  font-weight: var(--w-500);
+  font-size: 1rem;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+
+.festival-card .festival-body {
+  padding: var(--sp-35) var(--sp-35) var(--sp-28);
+  text-align: center;
+}
+
+.festival-card .festival-body p {
+  color: var(--c-ink-2);
+  margin-bottom: var(--sp-28);
+}
+
+.festival-card .festival-dates {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-20);
+  margin-bottom: var(--sp-28);
+  flex-wrap: wrap;
+}
+
+.festival-card .chip {
+  background: #fbf8f1;
+  border: 1px solid var(--c-grey);
+  border-radius: var(--r-10);
+  padding: var(--sp-2) var(--sp-20);
+  font-size: 0.85rem;
+  color: var(--c-ink-2);
+}
+
+.festival-card .actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-20);
+  flex-wrap: wrap;
+}
+
+.btn-celebrate {
+  background: var(--c-secondary);
+  color: var(--c-white);
+}
+
+.btn-celebrate:hover {
+  filter: brightness(1.05);
+}
+
+.btn-close {
+  background: transparent;
+  color: var(--c-ink);
+  border-color: var(--c-grey);
+}
+
+.festival-card .close-x {
+  position: absolute;
+  top: var(--sp-20);
+  right: var(--sp-20);
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--c-white);
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* =====================================================================
+   Responsive
+   ===================================================================== */
+@media (max-width: 900px) {
+  .hero-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .company-grid,
+  .awards-grid,
+  .honours-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .main-nav ul {
+    gap: var(--sp-20);
+  }
+  .company-grid,
+  .awards-grid,
+  .honours-grid {
+    grid-template-columns: 1fr;
+  }
+}

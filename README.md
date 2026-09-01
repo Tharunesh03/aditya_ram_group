@@ -1,1 +1,146 @@
-# aditya_ram_group
+# Adityaram Group — Celebration-Aware Landing Website
+
+A frontend-only recreation of **www.adityaramgroup.com**, built with **Flask** used
+purely as a static web server (no database, no business backend). The site's real
+feature: **on any festival day it automatically shows a colourful celebration poster**
+the moment a visitor opens the page.
+
+> Everything follows the extracted brand system: colours `#e0c481` / `#00a0d2` /
+> `#fde482` + the neutral greys, Open Sans + Times New Roman typography, the spacing
+> scale, 1px / 10px radii, and the friendly third-person brand voice.
+
+---
+
+## 1. Run it
+
+```bash
+# create a virtual environment once
+python3 -m venv .venv
+source .venv/bin/activate
+
+# install the single dependency
+pip install -r requirements.txt
+
+# start the site
+python app.py
+```
+
+Then open **http://127.0.0.1:5000** (or the live preview URL Arena gives you).
+
+---
+
+## 2. Project structure
+
+```
+aditya_ram_group/
+├── app.py                 # Flask entry — serves the single landing page
+├── requirements.txt       # Flask only
+├── templates/
+│   └── index.html         # the one-page marketing site
+└── static/
+    ├── css/style.css      # brand styles (tokens as CSS custom properties)
+    ├── js/
+    │   ├── festival-data.js   # ★ ALL festival dates + poster paths live here
+    │   └── festival.js        # detects today, shows the poster overlay
+    ├── img/               # hero / about / project placeholder artwork
+    └── festivals/         # ★ celebration poster images (one per festival)
+```
+
+---
+
+## 3. How the celebration poster works
+
+`festival.js` runs in the browser. On page load it compares **today's local date**
+against the festival windows in `festival-data.js`. If today falls inside a window
+`start <= today <= end`, it pops a full-screen, colourful poster over the page with
+a brand greeting, the date range, and friendly buttons.
+
+It is **frontend only** — no server round-trip, no database. The date is taken from
+the **visitor's own timezone**, so the poster appears at the right moment for them.
+
+---
+
+## 4. ★ How to ADD / EDIT a festival celebration poster
+
+This is the part you asked about. Two files:
+
+### Step A — add the poster image
+
+Drop your poster into:
+
+```
+static/festivals/<name>.jpg
+```
+
+Use a **landscape** image, ideally **1280×720 or larger**. Leave the image **free of
+text** — the greeting is drawn by the site in HTML, so it stays crisp and matches the
+brand. You can use any of the included ones as a template (e.g. `static/festivals/diwali.jpg`).
+
+### Step B — register the festival
+
+Open **`static/js/festival-data.js`** and add an object to the `window.FESTIVALS` array.
+Example:
+
+```js
+{
+  id: "diwali",                    // short slug, also used to force-test
+  name: "Diwali",                  // Title Case heading on the poster
+  emoji: "🪔",                     // friendly symbol
+  poster: "/static/festivals/diwali.jpg", // path to your image
+  greeting: "Happy Diwali",        // big headline (brand voice)
+  message: "Wishing you a festival of lights filled with joy, prosperity and happiness.", // one-line welcome
+  start: "11-06",                  // window start  MM-DD  (recurring each year)
+  end: "11-11",                    // window end    MM-DD  (inclusive)
+}
+```
+
+Save, and reload the site — it appears automatically on those dates.
+
+### Very important — dates move every year
+
+Hindu festival dates follow the lunar calendar, so they shift year to year. The dates
+bundled here are **accurate for 2026**. Each new year, update the `start` / `end` of the
+festivals you care about (the comment block at the top of `festival-data.js` reminds you,
+and there's an easy-to-edit section). The site never hard-codes a "current year" — it just
+compares today's `MM-DD` against the windows, so changing the numbers is all you do.
+
+---
+
+## 5. Testing the poster without waiting for a festival
+
+No server changes needed — the JS reads the URL. Open these anywhere:
+
+| URL (`?festival=...`)          | What happens                              |
+| ------------------------------ | ----------------------------------------- |
+| `/?festival=diwali`            | Force-open the Diwali poster (any day)    |
+| `/?festival=holi`              | Force-open the Holi poster                |
+| `/?festival=off`               | Never show a poster on this visit         |
+| `/?today=2026-11-08`           | Pretend today is Diwali — auto detection  |
+| `/?today=2026-03-04`           | Pretend today is Holi                     |
+
+Use these to preview each poster before the real day arrives.
+
+---
+
+## 6. Brand notes / deviations
+
+- **Poster images** — AI-generated decorative backgrounds matching the brand's
+  festival gold/cyan palette. The greeting text is rendered in HTML (not baked into
+  the image) so it stays sharp and accessible.
+- **Placeholder business images** — `static/img/*.svg` are brand-gradient placeholders
+  (the original site's photography wasn't extractable). Replace them with real
+  property / team images if you wish; no code changes needed.
+- **`OpenSans-Light`** — mapped to Open Sans with the light/regular/600/700 weights
+  available from Google Fonts; the light weight is approximated by the `400` weight with
+  normal letter-spacing (closest available per the extracted family list).
+- **`Sifonn-Basic`** — a brand display font not publicly hosted, so it's referenced but
+  the fallback is Arial / Times New Roman per the extraction.
+- **Form** — the contact form is a frontend-only demo (no backend, no data saved), since
+  you asked for no backend. It just shows a friendly confirmation.
+
+---
+
+## 7. Licence
+
+Educational clone for learning purposes. All brand names, copy and company references
+belong to Adityaram Group. This project is not affiliated with the company.
