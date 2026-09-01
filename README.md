@@ -83,6 +83,7 @@ Example:
 
 ```js
 {
+  religion: "Hindu",               // faith group shown as a chip on the poster
   id: "diwali",                    // short slug, also used to force-test
   name: "Diwali",                  // Title Case heading on the poster
   emoji: "🪔",                     // friendly symbol
@@ -96,13 +97,23 @@ Example:
 
 Save, and reload the site — it appears automatically on those dates.
 
+### Religions covered
+
+The site ships with **40 festivals across every faith**: Hindu (Pongal, Holi,
+Maha Shivaratri, Ugadi, Onam, Raksha Bandhan, Janmashtami, Ganesh Chaturthi, Navratri,
+Dussehra, Diwali, …), Muslim (Eid-ul-Fitr, Eid-ul-Adha, Milad-un-Nabi), Christian
+(Good Friday, Easter, Christmas), Sikh (Guru Gobind Singh Jayanti, Baisakhi, Gurpurab),
+Buddhist (Buddha Purnima), Jain (Mahavir Jayanti), and National (New Year, Republic Day,
+Independence Day, Gandhi Jayanti). Each appears as a colourful poster automatically on its day.
+
 ### Very important — dates move every year
 
-Hindu festival dates follow the lunar calendar, so they shift year to year. The dates
-bundled here are **accurate for 2026**. Each new year, update the `start` / `end` of the
-festivals you care about (the comment block at the top of `festival-data.js` reminds you,
-and there's an easy-to-edit section). The site never hard-codes a "current year" — it just
-compares today's `MM-DD` against the windows, so changing the numbers is all you do.
+Lunar festivals (Hindu, Muslim, Buddhist, Jain) shift year to year, so the dates bundled
+here are **accurate for 2026** (cross-checked against the Economic Times, astroyogi and
+hindutone 2026 calendars). Moon-sighted festivals (Eid) are tentative until the moon is
+seen. Each new year, just update the `start` / `end` strings in the entry you care about —
+the site never hard-codes a "current year"; it compares today's `MM-DD` against the windows,
+so changing those two numbers is all you do.
 
 ---
 
@@ -122,7 +133,14 @@ Use these to preview each poster before the real day arrives.
 
 ---
 
-## 6. Brand notes / deviations
+## 6. Upcoming Celebrations section
+
+The landing page has an **"Upcoming Celebrations"** section near the footer. It renders
+automatically from the same `FESTIVALS` array: every festival from today onward, grouped
+with its religion tag, poster and date. It uses the visitor's real date (or `?today=…`
+if you want to preview) and rolls to next year once the calendar is complete.
+
+## 7. Brand notes / deviations
 
 - **Poster images** — AI-generated decorative backgrounds matching the brand's
   festival gold/cyan palette. The greeting text is rendered in HTML (not baked into
@@ -144,7 +162,7 @@ Use these to preview each poster before the real day arrives.
 
 ---
 
-## 7. Licence
+## 8. Licence
 
 Educational clone for learning purposes. All brand names, copy and company references
 belong to Adityaram Group. This project is not affiliated with the company.
