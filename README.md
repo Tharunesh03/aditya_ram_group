@@ -140,7 +140,16 @@ automatically from the same `FESTIVALS` array: every festival from today onward,
 with its religion tag, poster and date. It uses the visitor's real date (or `?today=…`
 if you want to preview) and rolls to next year once the calendar is complete.
 
-## 7. Brand notes / deviations
+## 7. Layout / responsiveness
+
+- Every image sits in a fixed-ratio frame and is **absolutely positioned with
+  `object-fit: cover`**, so photos fill their frame edge-to-edge with no blank gaps
+  (this fixed the founder photo leaving a large empty gap below it).
+- Grids (companies, awards, honours, upcoming) collapse gracefully across
+  `1100px / 900px / 640px` breakpoints; section padding tightens on mobile so there
+  is no excessive whitespace. No external CSS framework — everything is hand-written.
+
+## 8. Brand notes / deviations
 
 - **Poster images** — AI-generated decorative backgrounds matching the brand's
   festival gold/cyan palette. The greeting text is rendered in HTML (not baked into
@@ -162,7 +171,7 @@ if you want to preview) and rolls to next year once the calendar is complete.
 
 ---
 
-## 8. Licence
+## 9. Licence
 
 Educational clone for learning purposes. All brand names, copy and company references
 belong to Adityaram Group. This project is not affiliated with the company.
