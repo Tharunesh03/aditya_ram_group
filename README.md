@@ -133,14 +133,12 @@ Use these to preview each poster before the real day arrives.
 
 ---
 
-## 6. Upcoming Celebrations section
+## 6. Layout / responsiveness
 
-The landing page has an **"Upcoming Celebrations"** section near the footer. It renders
-automatically from the same `FESTIVALS` array: every festival from today onward, grouped
-with its religion tag, poster and date. It uses the visitor's real date (or `?today=…`
-if you want to preview) and rolls to next year once the calendar is complete.
-
-## 7. Layout / responsiveness
+> Note: The landing page no longer includes an "Upcoming Celebrations" grid. The
+> celebration auto-display poster (see §3) is untouched — it still appears on each
+> festival day. If you want a browsable calendar back, re-add a section that reads
+> the same `window.FESTIVALS` array.
 
 - Every image sits in a fixed-ratio frame and is **absolutely positioned with
   `object-fit: cover`**, so photos fill their frame edge-to-edge with no blank gaps
@@ -149,7 +147,7 @@ if you want to preview) and rolls to next year once the calendar is complete.
   `1100px / 900px / 640px` breakpoints; section padding tightens on mobile so there
   is no excessive whitespace. No external CSS framework — everything is hand-written.
 
-## 8. Brand notes / deviations
+## 7. Brand notes / deviations
 
 - **Poster images** — AI-generated decorative backgrounds matching the brand's
   festival gold/cyan palette. The greeting text is rendered in HTML (not baked into
@@ -171,7 +169,7 @@ if you want to preview) and rolls to next year once the calendar is complete.
 
 ---
 
-## 9. Licence
+## 8. Licence
 
 Educational clone for learning purposes. All brand names, copy and company references
 belong to Adityaram Group. This project is not affiliated with the company.

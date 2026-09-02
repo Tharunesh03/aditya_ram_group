@@ -168,58 +168,10 @@
       .replace(/"/g, "&quot;");
   }
 
-  /* ---- render the "Upcoming Celebrations" grid on the landing page ---- */
-  function renderUpcoming(t) {
-    var grid = document.getElementById("upcoming-grid");
-    if (!grid) return;
-    var year = t.y;
-    var today = year + "-" + t.m + "-" + t.d;
-
-    // Build a date-sortable list using the current year, skipping past windows.
-    var items = [];
-    for (var i = 0; i < FESTIVALS.length; i++) {
-      var f = FESTIVALS[i];
-      var s = year + "-" + f.start;
-      var e = year + "-" + f.end;
-      // show every festival in a "this year or early next year" frame
-      if (e >= today) {
-        items.push({ f: f, s: s, e: e });
-      }
-    }
-    // If none left this year, roll to next year for a full calendar.
-    if (items.length === 0) {
-      var ny = year + 1;
-      for (var j = 0; j < FESTIVALS.length; j++) {
-        var g = FESTIVALS[j];
-        items.push({ f: g, s: ny + "-" + g.start, e: ny + "-" + g.end });
-      }
-    }
-    items.sort(function (a, b) { return a.s < b.s ? -1 : 1; });
-
-    var html = items.map(function (it) {
-      var f = it.f;
-      var dateLabel = it.s === it.e ? it.s : it.s + " \u2192 " + it.e;
-      return (
-        '<div class="upcoming-card">' +
-        '<div class="uc-poster" style="background-image:url(\'' + f.poster + "')\"></div>" +
-        '<div class="uc-body">' +
-        '<span class="uc-rel">' + escapeHtml(f.religion) + "</span>" +
-        "<h3>" + escapeHtml(f.name) + "</h3>" +
-        '<span class="uc-date">\u{1F4C5} ' + escapeHtml(dateLabel) + "</span>" +
-        "</div></div>"
-      );
-    }).join("");
-
-    grid.innerHTML = html;
-  }
-
   function run() {
     var forced = query("festival");
     var todayOverride = query("today");
     var t = todayLocal();
-
-    // Always populate the upcoming calendar (uses real today unless ?today overrides)
-    renderUpcoming(todayOverride ? { y: +todayOverride.slice(0,4), m: todayOverride.slice(5,7), d: todayOverride.slice(8,10) } : t);
 
     // ?festival=off disables posters for this visit
     if (forced === "off") return;
