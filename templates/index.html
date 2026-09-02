@@ -8,7 +8,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/css/style.css?v=3" />
+  <!-- Set the theme before paint so there is no flash of the wrong theme. -->
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("adityaram-theme"); } catch (e) {}
+      var dark = saved === "dark"
+        || (saved !== "light" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/css/style.css?v=4" />
 </head>
 <body>
 
@@ -26,6 +36,13 @@
           <li><a href="#GroupofCompanies">Companies</a></li>
           <li><a href="#honours">Honours</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li>
+            <button id="theme-toggle" class="theme-toggle" type="button"
+                    aria-label="Toggle dark and light theme" title="Toggle theme">
+              <span class="theme-ico" id="theme-ico">🌙</span>
+              <span id="theme-label" class="theme-label">Dark</span>
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
@@ -385,8 +402,9 @@
   </footer>
 
   <!-- ===================== SCRIPTS ===================== -->
-  <script src="/static/js/festival-data.js?v=3"></script>
-  <script src="/static/js/festival.js?v=3"></script>
+  <script src="/static/js/festival-data.js?v=4"></script>
+  <script src="/static/js/festival.js?v=4"></script>
+  <script src="/static/js/theme.js?v=4"></script>
   <script>
     // Small frontend-only form handler — no backend, just a friendly confirmation.
     function handleSubmit(event) {

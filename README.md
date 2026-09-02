@@ -41,7 +41,8 @@ aditya_ram_group/
     ├── css/style.css      # brand styles (tokens as CSS custom properties)
     ├── js/
     │   ├── festival-data.js   # ★ ALL festival dates + poster paths live here
-    │   └── festival.js        # detects today, shows the poster overlay
+    │   ├── festival.js        # detects today, shows the poster overlay
+    │   └── theme.js           # dark/light theme toggle (localStorage)
     ├── img/               # hero / about / project placeholder artwork
     └── festivals/         # ★ celebration poster images (one per festival)
 ```
@@ -137,7 +138,21 @@ Use these to preview each poster before the real day arrives.
 
 ---
 
-## 6. Layout / responsiveness
+## 6. Dark / light theme toggle
+
+A **🌙 / ☀️ button** in the nav switches the site between light and dark themes.
+- The choice is **saved in `localStorage`** (`adityaram-theme`), so it persists across
+  visits.
+- On the **first** visit it follows your **system preference**
+  (`prefers-color-scheme`); after that, your manual choice wins.
+- A tiny **inline script in `<head>`** sets the theme before the page paints, so there
+  is **no flash of the wrong theme**.
+- The **brand palette is preserved** in both themes (`#e0c481` / `#00a0d2` / `#fde482`);
+  only the neutrals re-theme. Theming is purely CSS custom properties
+  (`--c-bg`, `--c-surface`, `--c-text`, `--c-border`, `--c-footer-bg`, …) with a
+  `[data-theme="dark"]` override — no backend involved.
+
+## 7. Layout / responsiveness
 
 > Note: The landing page no longer includes an "Upcoming Celebrations" grid. The
 > celebration auto-display poster (see §3) is untouched — it still appears on each
@@ -151,7 +166,7 @@ Use these to preview each poster before the real day arrives.
   `1100px / 900px / 640px` breakpoints; section padding tightens on mobile so there
   is no excessive whitespace. No external CSS framework — everything is hand-written.
 
-## 7. Brand notes / deviations
+## 8. Brand notes / deviations
 
 - **Poster images** — AI-generated decorative backgrounds matching the brand's
   festival gold/cyan palette. The greeting text is rendered in HTML (not baked into
@@ -173,7 +188,7 @@ Use these to preview each poster before the real day arrives.
 
 ---
 
-## 8. Licence
+## 9. Licence
 
 Educational clone for learning purposes. All brand names, copy and company references
 belong to Adityaram Group. This project is not affiliated with the company.

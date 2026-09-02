@@ -20,6 +20,20 @@
   --c-grey: #cccccc;
   --c-white: #ffffff;
 
+  /* ---- theme-aware tokens (light defaults; overridden in [data-theme="dark"]) ----
+     Derived from the extracted neutrals (#ffffff · #000000 · #3a3a3a · #292929 ·
+     #cccccc · #3c3c3c). Dark values use the extracted dark neutrals so no new hex
+     is invented; #4a4a4a / #b8b8b8 / #1a1a1a are HSL adjusted from #3a3a3a.        */
+  --c-bg:        #ffffff;  /* page / header / hero background */
+  --c-surface:   #ffffff;  /* cards, forms, inputs            */
+  --c-surface-2: #fbf8f1;  /* warm off-white alt sections     */
+  --c-text:      #292929;  /* headings & primary text         */
+  --c-text-2:    #3a3a3a;  /* body text                       */
+  --c-text-3:    #3c3c3c;  /* meta / muted text               */
+  --c-border:    #cccccc;  /* borders / dividers             */
+  --c-footer-bg: #292929;  /* footer & solid dark buttons     */
+  --shadow-soft: 0 2px 25px rgba(0, 0, 0, 0.08);
+
   /* typography */
   --font-sans: "Open Sans", "Sifonn-Basic", Arial, "Times New Roman", sans-serif;
   --font-serif: "Times New Roman", Times, serif;
@@ -50,9 +64,23 @@
   --t-200: 200ms;
   --t-300: 300ms;
   --t-500: 500ms;
+}
 
-  /* shadows */
-  --shadow-soft: 0 2px 25px rgba(0, 0, 0, 0.08);
+/* =====================================================================
+   Dark theme — overrides the theme-aware tokens above. Font, brand
+   colours (#e0c481 / #00a0d2 / #fde482), spacing, radii and motion are
+   unchanged so the brand is preserved in both themes.
+   ===================================================================== */
+[data-theme="dark"] {
+  --c-bg:        #000000;  /* deep black page background   */
+  --c-surface:   #1a1a1a;  /* card background (from #292929, lightened) */
+  --c-surface-2: #3c3c3c;  /* alt section / chips (extracted neutral)   */
+  --c-text:      #ffffff;  /* headings & primary text      */
+  --c-text-2:    #cccccc;  /* body text (extracted light grey)  */
+  --c-text-3:    #b8b8b8;  /* meta text (from #cccccc dimmed)      */
+  --c-border:    #4a4a4a;  /* border (from #3a3a3a lightened)      */
+  --c-footer-bg: #1a1a1a;
+  --shadow-soft: 0 2px 25px rgba(0, 0, 0, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -77,10 +105,11 @@ html {
 body {
   font-family: var(--font-sans);
   font-weight: var(--w-400);
-  color: var(--c-ink);
-  background: var(--c-white);
+  color: var(--c-text);
+  background: var(--c-bg);
   line-height: 1.6;
   font-size: 16px;
+  transition: background-color var(--t-300), color var(--t-300);
 }
 
 img {
@@ -99,7 +128,7 @@ ul {
 
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
-  color: var(--c-ink);
+  color: var(--c-text);
   /* Title Case headings — rendered in the copy */
 }
 
@@ -112,11 +141,12 @@ h1, h2, h3, h4 {
    Header / navigation
    ===================================================================== */
 .site-header {
-  background: var(--c-white);
-  border-bottom: 1px solid var(--c-grey);
+  background: var(--c-bg);
+  border-bottom: 1px solid var(--c-border);
   position: sticky;
   top: 0;
   z-index: 50;
+  transition: background-color var(--t-300), border-color var(--t-300);
 }
 
 .nav-inner {
@@ -132,7 +162,7 @@ h1, h2, h3, h4 {
   font-weight: var(--w-700);
   font-size: 1.25rem;
   letter-spacing: 0.5px;
-  color: var(--c-ink);
+  color: var(--c-text);
   display: flex;
   align-items: center;
   gap: var(--sp-20);
@@ -160,13 +190,40 @@ h1, h2, h3, h4 {
 
 .main-nav a {
   font-size: 0.9rem;
-  color: var(--c-ink-2);
+  color: var(--c-text-2);
   font-weight: var(--w-600);
   transition: color var(--t-200);
 }
 
 .main-nav a:hover {
   color: var(--c-secondary);
+}
+
+/* ---- theme toggle button ---- */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-20);
+  padding: var(--sp-20) var(--sp-25);
+  border-radius: var(--r-10);
+  border: 1px solid var(--c-border);
+  background: var(--c-surface-2);
+  color: var(--c-text);
+  font-family: var(--font-sans);
+  font-weight: var(--w-700);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color var(--t-300), border-color var(--t-300), color var(--t-300);
+}
+
+.theme-toggle:hover {
+  border-color: var(--c-primary);
+  color: var(--c-secondary);
+}
+
+.theme-toggle .theme-ico {
+  font-size: 1rem;
+  line-height: 1;
 }
 
 /* =====================================================================
@@ -209,7 +266,7 @@ h1, h2, h3, h4 {
    Hero
    ===================================================================== */
 .hero {
-  background: var(--c-white);
+  background: var(--c-bg);
   padding: var(--sp-60) 0;
 }
 
@@ -236,7 +293,7 @@ h1, h2, h3, h4 {
 }
 
 .hero-copy p {
-  color: var(--c-ink-2);
+  color: var(--c-text-2);
   font-size: 1.05rem;
   max-width: 52ch;
 }
@@ -296,7 +353,7 @@ h1, h2, h3, h4 {
 
 .btn-outline {
   background: transparent;
-  color: var(--c-ink);
+  color: var(--c-text);
   border-color: var(--c-primary);
 }
 
@@ -309,7 +366,8 @@ h1, h2, h3, h4 {
    Founder & CMD
    ===================================================================== */
 .founder {
-  background: #fbf8f1;
+  background: var(--c-surface-2);
+  transition: background-color var(--t-300);
 }
 
 .founder-photo {
@@ -375,12 +433,13 @@ h1, h2, h3, h4 {
   grid-template-columns: 1fr 1fr;
   gap: var(--sp-45);
   align-items: center;
-  background: var(--c-white);
-  border: 1px solid var(--c-grey);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
   border-radius: var(--r-10);
   overflow: hidden;
   margin-bottom: var(--sp-50);
   box-shadow: var(--shadow-soft);
+  transition: background-color var(--t-300), border-color var(--t-300);
 }
 
 .award-feature-img {
@@ -417,7 +476,7 @@ h1, h2, h3, h4 {
 }
 
 .award-feature-copy p {
-  color: var(--c-ink-2);
+  color: var(--c-text-2);
 }
 
 /* =====================================================================
@@ -448,14 +507,15 @@ h1, h2, h3, h4 {
 
 .section-head p {
   margin-top: var(--sp-20);
-  color: var(--c-ink-2);
+  color: var(--c-text-2);
 }
 
 /* =====================================================================
    Group of companies
    ===================================================================== */
 .companies {
-  background: #fbf8f1;
+  background: var(--c-surface-2);
+  transition: background-color var(--t-300);
 }
 
 .company-grid {
@@ -465,11 +525,11 @@ h1, h2, h3, h4 {
 }
 
 .company-card {
-  background: var(--c-white);
-  border: 1px solid var(--c-grey);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
   border-radius: var(--r-10);
   overflow: hidden;
-  transition: transform var(--t-300), box-shadow var(--t-300);
+  transition: transform var(--t-300), box-shadow var(--t-300), background-color var(--t-300), border-color var(--t-300);
 }
 
 .company-card:hover {
@@ -530,12 +590,12 @@ h1, h2, h3, h4 {
 }
 
 .award-card {
-  border: 1px solid var(--c-grey);
+  border: 1px solid var(--c-border);
   border-radius: var(--r-10);
   padding: var(--sp-35) var(--sp-25);
   text-align: center;
-  background: var(--c-white);
-  transition: box-shadow var(--t-300);
+  background: var(--c-surface);
+  transition: box-shadow var(--t-300), background-color var(--t-300), border-color var(--t-300);
 }
 
 .award-card:hover {
@@ -563,7 +623,7 @@ h1, h2, h3, h4 {
 }
 
 .award-card .meta {
-  color: var(--c-ink-3);
+  color: var(--c-text-3);
   font-size: 0.85rem;
   letter-spacing: 0.3px;
 }
@@ -582,7 +642,8 @@ h1, h2, h3, h4 {
   overflow: hidden;
   position: relative;
   aspect-ratio: 16 / 11;
-  border: 1px solid var(--c-grey);
+  border: 1px solid var(--c-border);
+  transition: border-color var(--t-300);
 }
 
 .honour-card img {
@@ -639,10 +700,11 @@ h1, h2, h3, h4 {
 }
 
 .contact-form {
-  background: var(--c-white);
+  background: var(--c-surface);
   border-radius: var(--r-10);
   padding: var(--sp-45) var(--sp-35);
   box-shadow: var(--shadow-soft);
+  transition: background-color var(--t-300);
 }
 
 .contact-form h2 {
@@ -650,7 +712,7 @@ h1, h2, h3, h4 {
 }
 
 .contact-form .note {
-  color: var(--c-ink-2);
+  color: var(--c-text-2);
   margin-bottom: var(--sp-35);
 }
 
@@ -663,20 +725,20 @@ h1, h2, h3, h4 {
   font-size: 0.85rem;
   font-weight: var(--w-600);
   margin-bottom: var(--sp-20);
-  color: var(--c-ink-2);
+  color: var(--c-text-2);
 }
 
 .field input,
 .field textarea {
   width: 100%;
   padding: var(--sp-28) var(--sp-25);
-  border: 1px solid var(--c-grey);
+  border: 1px solid var(--c-border);
   border-radius: var(--r-1);
   font-family: var(--font-sans);
   font-size: 0.95rem;
-  color: var(--c-ink);
-  background: var(--c-white);
-  transition: border-color var(--t-200);
+  color: var(--c-text);
+  background: var(--c-surface);
+  transition: border-color var(--t-200), background-color var(--t-300), color var(--t-300);
 }
 
 .field input:focus,
@@ -687,13 +749,14 @@ h1, h2, h3, h4 {
 
 .btn-submit {
   width: 100%;
-  background: var(--c-ink);
+  background: var(--c-footer-bg);
   color: var(--c-primary-soft);
+  transition: background-color var(--t-300);
 }
 
 .btn-submit:hover {
-  background: var(--c-black);
-  color: var(--c-primary);
+  background: var(--c-text);
+  color: var(--c-bg);
 }
 
 .contact-details h2 {
@@ -711,12 +774,13 @@ h1, h2, h3, h4 {
   width: 44px;
   height: 44px;
   border-radius: var(--r-10);
-  background: var(--c-white);
+  background: var(--c-surface);
   display: grid;
   place-items: center;
   flex-shrink: 0;
   color: var(--c-secondary);
   font-weight: var(--w-700);
+  transition: background-color var(--t-300);
 }
 
 .contact-block h4 {
@@ -725,7 +789,7 @@ h1, h2, h3, h4 {
 }
 
 .contact-block p {
-  color: var(--c-black);
+  color: var(--c-text-2);
   font-size: 0.95rem;
 }
 
@@ -733,15 +797,11 @@ h1, h2, h3, h4 {
    Footer
    ===================================================================== */
 .site-footer {
-  background: var(--c-ink);
+  background: var(--c-footer-bg);
   color: var(--c-white);
   padding: var(--sp-50) 0;
   text-align: center;
-}
-
-.site-footer p {
-  color: #cccccc;
-  font-size: 0.9rem;
+  transition: background-color var(--t-300);
 }
 
 .site-footer .brand {
@@ -793,10 +853,11 @@ h1, h2, h3, h4 {
   width: min(720px, 94vw);
   border-radius: var(--r-10);
   overflow: hidden;
-  background: var(--c-white);
+  background: var(--c-surface);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
   animation: pop-in var(--t-500) ease;
   max-height: 92vh;
+  transition: background-color var(--t-300);
 }
 
 @keyframes pop-in {
@@ -852,7 +913,7 @@ h1, h2, h3, h4 {
 }
 
 .festival-card .festival-body p {
-  color: var(--c-ink-2);
+  color: var(--c-text-2);
   margin-bottom: var(--sp-28);
 }
 
@@ -865,12 +926,13 @@ h1, h2, h3, h4 {
 }
 
 .festival-card .chip {
-  background: #fbf8f1;
-  border: 1px solid var(--c-grey);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
   border-radius: var(--r-10);
   padding: var(--sp-2) var(--sp-20);
   font-size: 0.85rem;
-  color: var(--c-ink-2);
+  color: var(--c-text-2);
+  transition: background-color var(--t-300), border-color var(--t-300), color var(--t-300);
 }
 
 .festival-card .chip.religion-chip {
@@ -899,8 +961,8 @@ h1, h2, h3, h4 {
 
 .btn-close {
   background: transparent;
-  color: var(--c-ink);
-  border-color: var(--c-grey);
+  color: var(--c-text);
+  border-color: var(--c-border);
 }
 
 .festival-card .close-x {
