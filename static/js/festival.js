@@ -125,7 +125,6 @@
       "</div>" +
       '<div class="actions">' +
       '<button class="btn btn-celebrate" data-act="celebrate">Start Celebrating \u2728</button>' +
-      '<button class="btn btn-close" data-act="close">Not Now</button>' +
       "</div>";
 
     card.appendChild(closeBtn);
@@ -144,7 +143,6 @@
     }
 
     closeBtn.addEventListener("click", close);
-    overlay.querySelector('[data-act="close"]').addEventListener("click", close);
     overlay.querySelector('[data-act="celebrate"]').addEventListener("click", function () {
       // happy little sprinkle of colour, then let the visitor browse
       overlay.classList.add("celebrating");
