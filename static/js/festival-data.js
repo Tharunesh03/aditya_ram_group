@@ -1,0 +1,498 @@
+/* =====================================================================
+   FESTIVAL DATA — Adityaram Group celebration posters
+   =====================================================================
+   Every religion / faith is covered below (Hindu · Muslim · Christian ·
+   Sikh · Buddhist · Jain · National). Each entry has a `religion` tag.
+
+   HOW THE CELEBRATION WORKS
+   ---------------------------------------------------------------------
+   festival.js reads this array. On page load it compares the visitor's
+   local date with each entry's window. If today is inside `start`..`end`
+   (inclusive), the celebration poster pops automatically over the site.
+
+   HOW TO ADD / EDIT A FESTIVAL
+   ---------------------------------------------------------------------
+   1. Drop a poster image into static/festivals/<slug>.jpg  (landscape
+      ~1280x720, no text on the image — the greeting is drawn in HTML).
+   2. Add an entry here with the fields below.
+   3. Re-run the site. Done — no other code to touch.
+
+   FIELDS
+   ---------------------------------------------------------------------
+     religion  : which faith/group it belongs to (shown on poster)
+     id        : short slug (also used by ?festival=<id> to force-test)
+     name      : Title-Case heading on the poster
+     emoji     : friendly symbol
+     poster    : path to the image (relative to /static)
+     greeting  : big headline (brand voice, friendly)
+     message   : one-line welcoming sentence
+     start     : 'MM-DD' window start (recurring every year)
+     end       : 'MM-DD' window end (inclusive)
+
+   ██  IMPORTANT — DATE ACCURACY  ██
+   ---------------------------------------------------------------------
+   Lunar festivals (Hindu, Muslim, Buddhist, Jain) SHIFT every year, so
+   the `start`/`end` values below are accurate for **2026** (cross-checked
+   against the Economic Times, astroyogi & hindutone 2026 calendars).
+   Moon-sighted festivals (Eid) are tentative until the moon is seen.
+
+   To change any date, just edit the `start` / `end` strings in the entry.
+   That is ALL you do — the site compares today against them automatically.
+   ===================================================================== */
+
+window.FESTIVALS = [
+
+  /* ------------------------- NEW YEAR / NATIONAL ------------------- */
+  {
+    religion: "National",
+    id: "newyear",
+    name: "New Year",
+    emoji: "🎉",
+    poster: "/static/festivals/newyear.jpg",
+    start: "01-01",
+    end: "01-01",
+    greeting: "Happy New Year",
+    message: "Wishing you a bright and prosperous new year from the Adityaram Group family.",
+  },
+  {
+    religion: "National",
+    id: "republicday",
+    name: "Republic Day",
+    emoji: "🇮🇳",
+    poster: "/static/festivals/independence_day.jpg",
+    start: "01-26",
+    end: "01-26",
+    greeting: "Happy Republic Day",
+    message: "Saluting the spirit of a proud nation — wishing you a memorable Republic Day.",
+  },
+  {
+    religion: "National",
+    id: "independenceday",
+    name: "Independence Day",
+    emoji: "🇮🇳",
+    poster: "/static/festivals/independence_day.jpg",
+    start: "08-15",
+    end: "08-15",
+    greeting: "Happy Independence Day",
+    message: "Celebrating the freedom, pride and bright future of our great nation.",
+  },
+  {
+    religion: "National",
+    id: "gandhijayanti",
+    name: "Gandhi Jayanti",
+    emoji: "🕊️",
+    poster: "/static/festivals/independence_day.jpg",
+    start: "10-02",
+    end: "10-02",
+    greeting: "Happy Gandhi Jayanti",
+    message: "Honouring the Father of the Nation and his message of peace and truth.",
+  },
+
+  /* ------------------------- HINDU -------------------------------- */
+  {
+    religion: "Hindu",
+    id: "makkarsankranti",
+    name: "Makar Sankranti",
+    emoji: "🪁",
+    poster: "/static/festivals/pongal.jpg",
+    start: "01-13",
+    end: "01-15",
+    greeting: "Happy Makar Sankranti",
+    message: "May the Sun's journey north bring warmth, prosperity and joy to your home.",
+  },
+  {
+    religion: "Hindu",
+    id: "pongal",
+    name: "Pongal",
+    emoji: "🌾",
+    poster: "/static/festivals/pongal.jpg",
+    start: "01-14",
+    end: "01-16",
+    greeting: "Happy Pongal",
+    message: "May the harvest festival bring abundance, sunshine and joy to your home.",
+  },
+  {
+    religion: "Hindu",
+    id: "basanthpanchami",
+    name: "Basant Panchami",
+    emoji: "🌼",
+    poster: "/static/festivals/holi.jpg",
+    start: "01-23",
+    end: "01-23",
+    greeting: "Happy Basant Panchami",
+    message: "Wishing you the blessings of Maa Saraswati and the colours of spring.",
+  },
+  {
+    religion: "Hindu",
+    id: "mahashivratri",
+    name: "Maha Shivaratri",
+    emoji: "🔱",
+    poster: "/static/festivals/mahashivratri.jpg",
+    start: "02-15",
+    end: "02-15",
+    greeting: "Happy Maha Shivaratri",
+    message: "May the grace of Lord Shiva bring peace, wisdom and strength to you.",
+  },
+  {
+    religion: "Hindu",
+    id: "holi",
+    name: "Holi",
+    emoji: "🎨",
+    poster: "/static/festivals/holi.jpg",
+    start: "03-03",
+    end: "03-05",
+    greeting: "Happy Holi",
+    message: "May your life be painted with bright colours, laughter and togetherness.",
+  },
+  {
+    religion: "Hindu",
+    id: "ugadi",
+    name: "Ugadi",
+    emoji: "🌿",
+    poster: "/static/festivals/pongal.jpg",
+    start: "03-19",
+    end: "03-19",
+    greeting: "Happy Ugadi",
+    message: "Wishing you a year of new beginnings, growth and happiness.",
+  },
+  {
+    religion: "Hindu",
+    id: "gudipadwa",
+    name: "Gudi Padwa",
+    emoji: "🏵️",
+    poster: "/static/festivals/pongal.jpg",
+    start: "03-19",
+    end: "03-19",
+    greeting: "Happy Gudi Padwa",
+    message: "May this auspicious new year bring you prosperity and success.",
+  },
+  {
+    religion: "Hindu",
+    id: "ramnavami",
+    name: "Ram Navami",
+    emoji: "🏹",
+    poster: "/static/festivals/ganesh_chaturthi.jpg",
+    start: "03-26",
+    end: "03-26",
+    greeting: "Happy Ram Navami",
+    message: "Wishing you the divine blessings of Lord Rama on this sacred day.",
+  },
+  {
+    religion: "Hindu",
+    id: "hanumanjayanti",
+    name: "Hanuman Jayanti",
+    emoji: "🙏",
+    poster: "/static/festivals/mahashivratri.jpg",
+    start: "04-02",
+    end: "04-02",
+    greeting: "Happy Hanuman Jayanti",
+    message: "May Lord Hanuman bless you with courage, devotion and strength.",
+  },
+  {
+    religion: "Hindu",
+    id: "akshayatritiya",
+    name: "Akshaya Tritiya",
+    emoji: "🪙",
+    poster: "/static/festivals/diwali.jpg",
+    start: "04-19",
+    end: "04-19",
+    greeting: "Happy Akshaya Tritiya",
+    message: "May this auspicious day bring you endless prosperity and success.",
+  },
+  {
+    religion: "Hindu",
+    id: "tamilnewyear",
+    name: "Tamil New Year",
+    emoji: "🌞",
+    poster: "/static/festivals/pongal.jpg",
+    start: "04-14",
+    end: "04-14",
+    greeting: "Puthandu Vazthukal",
+    message: "Wishing you a warm and wonderful Tamil New Year filled with new beginnings.",
+  },
+  {
+    religion: "Hindu",
+    id: "rathyatra",
+    name: "Rath Yatra",
+    emoji: "🛕",
+    poster: "/static/festivals/ganesh_chaturthi.jpg",
+    start: "07-16",
+    end: "07-16",
+    greeting: "Happy Rath Yatra",
+    message: "Wishing you the blessings of Lord Jagannath on this chariot festival.",
+  },
+  {
+    religion: "Hindu",
+    id: "nagpanchami",
+    name: "Nag Panchami",
+    emoji: "🐍",
+    poster: "/static/festivals/mahashivratri.jpg",
+    start: "08-17",
+    end: "08-17",
+    greeting: "Happy Nag Panchami",
+    message: "Wishing you protection and prosperity on this auspicious day.",
+  },
+  {
+    religion: "Hindu",
+    id: "onam",
+    name: "Onam",
+    emoji: "🌼",
+    poster: "/static/festivals/onam.jpg",
+    start: "08-25",
+    end: "08-27",
+    greeting: "Happy Onam",
+    message: "May the colours of the pookalam and the joy of the harvest light up your home.",
+  },
+  {
+    religion: "Hindu",
+    id: "rakshabandhan",
+    name: "Raksha Bandhan",
+    emoji: "🎀",
+    poster: "/static/festivals/rakshabandhan.jpg",
+    start: "08-28",
+    end: "08-28",
+    greeting: "Happy Raksha Bandhan",
+    message: "Celebrating the sweet bond of love and protection between siblings.",
+  },
+  {
+    religion: "Hindu",
+    id: "janmashtami",
+    name: "Janmashtami",
+    emoji: "🦚",
+    poster: "/static/festivals/ganesh_chaturthi.jpg",
+    start: "09-04",
+    end: "09-04",
+    greeting: "Happy Janmashtami",
+    message: "Wishing you the blessings of Lord Krishna on this auspicious day.",
+  },
+  {
+    religion: "Hindu",
+    id: "ganeshchaturthi",
+    name: "Ganesh Chaturthi",
+    emoji: "🐘",
+    poster: "/static/festivals/ganesh_chaturthi.jpg",
+    start: "09-14",
+    end: "09-17",
+    greeting: "Happy Ganesh Chaturthi",
+    message: "May Lord Ganesha bless you with wisdom, prosperity and success.",
+  },
+  {
+    religion: "Hindu",
+    id: "navratri",
+    name: "Navratri",
+    emoji: "💃",
+    poster: "/static/festivals/navratri.jpg",
+    start: "10-11",
+    end: "10-19",
+    greeting: "Happy Navratri",
+    message: "May the nine nights of the Goddess fill your life with strength and grace.",
+  },
+  {
+    religion: "Hindu",
+    id: "dussehra",
+    name: "Dussehra",
+    emoji: "🏹",
+    poster: "/static/festivals/dussehra.jpg",
+    start: "10-20",
+    end: "10-20",
+    greeting: "Happy Dussehra",
+    message: "May the victory of good over evil bring peace and prosperity to you.",
+  },
+  {
+    religion: "Hindu",
+    id: "karvachauth",
+    name: "Karva Chauth",
+    emoji: "🌙",
+    poster: "/static/festivals/diwali.jpg",
+    start: "10-29",
+    end: "10-29",
+    greeting: "Happy Karva Chauth",
+    message: "Wishing you love, devotion and a lifetime of togetherness.",
+  },
+  {
+    religion: "Hindu",
+    id: "dhanteras",
+    name: "Dhanteras",
+    emoji: "🪙",
+    poster: "/static/festivals/diwali.jpg",
+    start: "11-06",
+    end: "11-06",
+    greeting: "Happy Dhanteras",
+    message: "Wishing you a festival of wealth, health and prosperity.",
+  },
+  {
+    religion: "Hindu",
+    id: "diwali",
+    name: "Diwali",
+    emoji: "🪔",
+    poster: "/static/festivals/diwali.jpg",
+    start: "11-06",
+    end: "11-11",
+    greeting: "Happy Diwali",
+    message: "Wishing you a festival of lights filled with joy, prosperity and happiness.",
+  },
+  {
+    religion: "Hindu",
+    id: "govardhanpuja",
+    name: "Govardhan Puja",
+    emoji: "🏔️",
+    poster: "/static/festivals/diwali.jpg",
+    start: "11-10",
+    end: "11-10",
+    greeting: "Happy Govardhan Puja",
+    message: "Wishing you the blessings of Lord Krishna and abundant joy.",
+  },
+  {
+    religion: "Hindu",
+    id: "bhaidooj",
+    name: "Bhai Dooj",
+    emoji: "🎊",
+    poster: "/static/festivals/diwali.jpg",
+    start: "11-11",
+    end: "11-11",
+    greeting: "Happy Bhai Dooj",
+    message: "Celebrating the special bond between brothers and sisters.",
+  },
+  {
+    religion: "Hindu",
+    id: "chhathpuja",
+    name: "Chhath Puja",
+    emoji: "🌅",
+    poster: "/static/festivals/diwali.jpg",
+    start: "11-15",
+    end: "11-15",
+    greeting: "Happy Chhath Puja",
+    message: "May the Sun God bless you with health, happiness and prosperity.",
+  },
+
+  /* ------------------------- MUSLIM -------------------------------- */
+  {
+    religion: "Muslim",
+    id: "eidulfitr",
+    name: "Eid-ul-Fitr",
+    emoji: "🌙",
+    poster: "/static/festivals/eid.jpg",
+    start: "03-21",
+    end: "03-22",
+    greeting: "Eid Mubarak",
+    message: "Wishing you joy, peace and togetherness on this blessed festival.",
+  },
+  {
+    religion: "Muslim",
+    id: "eiduladha",
+    name: "Eid-ul-Adha",
+    emoji: "🌙",
+    poster: "/static/festivals/eid.jpg",
+    start: "05-27",
+    end: "05-28",
+    greeting: "Eid Mubarak",
+    message: "May this festival of sacrifice bring peace and blessings to you and your family.",
+  },
+  {
+    religion: "Muslim",
+    id: "miladunnabi",
+    name: "Milad-un-Nabi",
+    emoji: "🌹",
+    poster: "/static/festivals/eid.jpg",
+    start: "08-26",
+    end: "08-26",
+    greeting: "Milad Mubarak",
+    message: "Wishing you peace and blessings on this sacred occasion.",
+  },
+
+  /* ------------------------- CHRISTIAN ----------------------------- */
+  {
+    religion: "Christian",
+    id: "goodfriday",
+    name: "Good Friday",
+    emoji: "✝️",
+    poster: "/static/festivals/good_friday.jpg",
+    start: "04-03",
+    end: "04-03",
+    greeting: "Blessed Good Friday",
+    message: "Wishing you peace, hope and reflection on this solemn day.",
+  },
+  {
+    religion: "Christian",
+    id: "easter",
+    name: "Easter",
+    emoji: "🐣",
+    poster: "/static/festivals/easter.jpg",
+    start: "04-05",
+    end: "04-05",
+    greeting: "Happy Easter",
+    message: "May the joy of Easter fill your heart with hope and renewal.",
+  },
+  {
+    religion: "Christian",
+    id: "christmas",
+    name: "Christmas",
+    emoji: "🎄",
+    poster: "/static/festivals/christmas.jpg",
+    start: "12-24",
+    end: "12-26",
+    greeting: "Merry Christmas",
+    message: "May the warmth of the season bring peace and cheer to you and your family.",
+  },
+
+  /* ------------------------- SIKH --------------------------------- */
+  {
+    religion: "Sikh",
+    id: "gurugobindsingh",
+    name: "Guru Gobind Singh Jayanti",
+    emoji: "🦅",
+    poster: "/static/festivals/gurupurab.jpg",
+    start: "01-05",
+    end: "01-05",
+    greeting: "Happy Guru Gobind Singh Jayanti",
+    message: "Wishing you the courage and wisdom of the great Guru.",
+  },
+  {
+    religion: "Sikh",
+    id: "baisakhi",
+    name: "Baisakhi",
+    emoji: "🌾",
+    poster: "/static/festivals/baisakhi.jpg",
+    start: "04-14",
+    end: "04-14",
+    greeting: "Happy Baisakhi",
+    message: "Wishing you a joyful harvest festival and the birth of the Khalsa.",
+  },
+  {
+    religion: "Sikh",
+    id: "gurupurab",
+    name: "Gurpurab",
+    emoji: "📿",
+    poster: "/static/festivals/gurupurab.jpg",
+    start: "11-24",
+    end: "11-24",
+    greeting: "Happy Gurpurab",
+    message: "Wishing you the blessings of Guru Nanak Dev Ji on this sacred day.",
+  },
+
+  /* ------------------------- BUDDHIST ------------------------------ */
+  {
+    religion: "Buddhist",
+    id: "buddhapurnima",
+    name: "Buddha Purnima",
+    emoji: "☸️",
+    poster: "/static/festivals/buddha_purnima.jpg",
+    start: "05-01",
+    end: "05-01",
+    greeting: "Happy Buddha Purnima",
+    message: "Wishing you peace, compassion and enlightenment on this sacred day.",
+  },
+
+  /* ------------------------- JAIN --------------------------------- */
+  {
+    religion: "Jain",
+    id: "mahavirjayanti",
+    name: "Mahavir Jayanti",
+    emoji: "🪷",
+    poster: "/static/festivals/mahavir_jayanti.jpg",
+    start: "04-02",
+    end: "04-02",
+    greeting: "Happy Mahavir Jayanti",
+    message: "Wishing you peace, non-violence and the path of righteousness.",
+  },
+];

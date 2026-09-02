@@ -1,0 +1,108 @@
+=====================================================================
+  HOW TO CHANGE FESTIVAL DATES  (Adityaram Group website)
+=====================================================================
+
+You can change every festival date by hand in a code file. There is NO
+backend, NO database, NO rebuild step — after you edit, just refresh the
+browser.
+
+---------------------------------------------------------------------
+  THE ONE FILE YOU EDIT
+---------------------------------------------------------------------
+
+    static/js/festival-data.js
+
+This file contains a list called `window.FESTIVALS`. Each entry is one
+festival and has a `start` and an `end` field.
+
+Dates use the format:  MM-DD  (month, then day)
+Example: "08-28" = 28 August.
+
+The same window repeats EVERY year. There is no year stored in the file —
+the site just compares today's month-day against these values.
+
+---------------------------------------------------------------------
+  EXAMPLE — change one festival's dates
+---------------------------------------------------------------------
+
+Open static/js/festival-data.js and find the entry. Suppose Diwali:
+
+    {
+      religion: "Hindu",
+      id: "diwali",
+      name: "Diwali",
+      emoji: "🪔",
+      poster: "/static/festivals/diwali.jpg",
+      start: "11-06",          <-- window start (6 Nov)
+      end:   "11-11",          <-- window end   (11 Nov, inclusive)
+      greeting: "Happy Diwali",
+      message: "Wishing you a festival of lights filled with joy, prosperity and happiness.",
+    },
+
+To move it to 4–9 November, change just the two quoted numbers:
+
+      start: "11-04",
+      end:   "11-09",
+
+Save the file. Done.
+
+---------------------------------------------------------------------
+  RULES TO REMEMBER
+---------------------------------------------------------------------
+
+1. Format is MM-DD. "01-26" is 26 January. Keep it two digits each part.
+2. The window is INCLUSIVE: the poster shows on start AND end and every
+   day in between.
+3. For a one-day festival, set start and end to the SAME value:
+       start: "01-01",
+       end:   "01-01",
+4. Lunar festivals (Hindu, Muslim, Buddhist, Jain) SHIFT every year, so
+   the dates bundled here are correct for 2026. Update them each new year.
+5. Moon-sighted festivals (Eid) are approximate until the moon is seen.
+
+---------------------------------------------------------------------
+  ADD A BRAND-NEW FESTIVAL
+---------------------------------------------------------------------
+
+Copy any entry, paste a new { ... } block inside the list, and change:
+  - religion  (e.g. "Hindu", "Muslim", "Christian", "Sikh", "Buddhist", "Jain")
+  - id        (short slug, e.g. "pongal")
+  - name      (Title Case heading on the poster)
+  - emoji     (a friendly symbol)
+  - poster    (path to the image, e.g. "/static/festivals/pongal.jpg")
+  - greeting  (big headline)
+  - message   (one-line welcome)
+  - start / end (MM-DD window)
+
+Put the poster image at:  static/festivals/<name>.jpg
+(landscape, no text on the image — the greeting is drawn by the site).
+
+---------------------------------------------------------------------
+  TEST IT WITHOUT WAITING FOR THE REAL DAY
+---------------------------------------------------------------------
+
+The poster only appears on the real date. To preview any festival at any
+time, add one of these to the website URL (in the browser address bar):
+
+    ?festival=diwali       -> force-open the Diwali poster any day
+    ?today=2026-11-08      -> pretend today is Diwali (auto detection)
+    ?today=2026-03-21      -> pretend today is Eid-ul-Fitr
+    ?festival=off          -> never show a poster
+
+Example full URL:
+    http://localhost:5000/?festival=diwali
+
+---------------------------------------------------------------------
+  RUN THE SITE (one time setup)
+---------------------------------------------------------------------
+
+    python3 -m venv .venv
+    source .venv/bin/activate        (Windows: .venv\Scripts\activate)
+    pip install -r requirements.txt
+    python app.py
+
+Then open  http://127.0.0.1:5000
+
+After you edit festival-data.js you do NOT need to restart the server —
+just refresh the browser.
+=====================================================================
