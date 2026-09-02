@@ -62,6 +62,10 @@ the **visitor's own timezone**, so the poster appears at the right moment for th
 
 ## 4. ★ How to ADD / EDIT a festival celebration poster
 
+> **Quick reference:** there is also a plain-text version of this guide at the
+> project root — **`HOW-TO-EDIT-FESTIVAL-DATES.txt`** — handy if you'd rather read
+> the steps in a simple text file after unzipping.
+
 This is the part you asked about. Two files:
 
 ### Step A — add the poster image
