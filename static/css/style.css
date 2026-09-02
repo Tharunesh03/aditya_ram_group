@@ -765,6 +765,25 @@ h1, h2, h3, h4 {
   background: rgba(0, 0, 0, 0.55);
 }
 
+/* Full-screen canvas that holds the festive crackers. Sits above the poster
+   overlay but never blocks clicks, so the poster and buttons stay usable. */
+.fireworks-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  pointer-events: none;
+}
+
+/* Gentle celebratory pulse on the card while the crackers are running. */
+.festival-overlay.is-open.celebrating .festival-card {
+  animation: celebrate-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes celebrate-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.012); }
+}
+
 .festival-overlay.is-open {
   display: flex;
 }

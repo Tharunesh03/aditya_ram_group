@@ -85,6 +85,8 @@
   /* ---- render & wire the overlay ---- */
   function makeOverlay(info) {
     var f = info.festival;
+    var celebrating = false;
+    var fireworks = null;
 
     var overlay = document.createElement("div");
     overlay.className = "festival-overlay is-open";
@@ -135,6 +137,7 @@
     document.body.style.overflow = "hidden";
 
     function close() {
+      if (fireworks) fireworks.stop();
       overlay.classList.remove("is-open");
       document.body.style.overflow = "";
       setTimeout(function () {
@@ -144,9 +147,18 @@
 
     closeBtn.addEventListener("click", close);
     overlay.querySelector('[data-act="celebrate"]').addEventListener("click", function () {
-      // happy little sprinkle of colour, then let the visitor browse
-      overlay.classList.add("celebrating");
-      close();
+      var btn = this;
+      if (!celebrating) {
+        celebrating = true;
+        overlay.classList.add("celebrating");
+        // Launch festive crackers behind the poster.
+        fireworks = launchFireworks();
+        btn.textContent = "\uD83C\uDF86 Celebrating \u2014 Close";
+        btn.classList.add("btn-close");
+      } else {
+        if (fireworks) fireworks.stop();
+        close();
+      }
     });
     // clicking the dimmed backdrop also dismisses
     overlay.addEventListener("click", function (e) {
@@ -156,6 +168,124 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") close();
     });
+  }
+
+  /* ---- festive crackers / fireworks (canvas, frontend only) ----
+     Colours are derived from the brand palette (gold #e0c481,
+     soft-gold #fde482, cyan #00a0d2) plus warm HSL shifts of those hues
+     so the effect stays on-brand. Transient celebratory effect, not a UI
+     token, so it never touches the extracted colour system.            */
+  function launchFireworks() {
+    // Respect users who prefer reduced motion: skip the crackers gracefully.
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return { stop: function () {} };
+    }
+
+    var canvas = document.createElement("canvas");
+    canvas.className = "fireworks-canvas";
+    var ctx = canvas.getContext("2d");
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function resize() {
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    document.body.appendChild(canvas);
+
+    // Brand-derived festive palette (HSL shifts of the extracted gold/cyan).
+    var COLORS = ["#e0c481", "#fde482", "#00a0d2", "#f5b64a", "#5ec9e6", "#fff3c4"];
+    var rockets = [];
+    var particles = [];
+    var running = true;
+    var last = performance.now();
+
+    function spawnRocket() {
+      rockets.push({
+        x: Math.random() * window.innerWidth,
+        y: window.innerHeight + 8,
+        vx: (Math.random() - 0.5) * 1.6,
+        vy: -(Math.random() * 6 + 9),
+        targetY: Math.random() * (window.innerHeight * 0.5) + 60,
+        color: COLORS[(Math.random() * COLORS.length) | 0],
+      });
+    }
+
+    function explode(x, y, color) {
+      var n = 55 + ((Math.random() * 40) | 0);
+      for (var i = 0; i < n; i++) {
+        var ang = Math.random() * Math.PI * 2;
+        var speed = Math.random() * 7 + 2;
+        particles.push({
+          x: x, y: y,
+          vx: Math.cos(ang) * speed,
+          vy: Math.sin(ang) * speed,
+          life: 1,
+          decay: 0.008 + Math.random() * 0.014,
+          size: 1 + Math.random() * 2.6,
+          color: Math.random() < 0.3 ? "#fff3c4" : color,
+        });
+      }
+    }
+
+    function step(now) {
+      if (!running) return;
+      var dt = Math.min((now - last) / 16.7, 3);
+      last = now;
+
+      // Keep a steady supply of crackers in the air.
+      if (rockets.length < 4 && Math.random() < 0.1) spawnRocket();
+      if (Math.random() < 0.04) spawnRocket();
+
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      var i;
+      for (i = rockets.length - 1; i >= 0; i--) {
+        var r = rockets[i];
+        r.x += r.vx;
+        r.y += r.vy;
+        r.vy += 0.15;
+        ctx.fillStyle = "rgba(255,255,255,0.85)";
+        ctx.fillRect(r.x, r.y, 2, 2);
+        if (r.vy >= -1 || r.y <= r.targetY) {
+          explode(r.x, r.y, r.color);
+          rockets.splice(i, 1);
+        }
+      }
+
+      for (i = particles.length - 1; i >= 0; i--) {
+        var p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+        p.vy += 0.06;
+        p.life -= p.decay * dt;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+        ctx.globalAlpha = Math.max(p.life, 0);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    function stop() {
+      running = false;
+      window.removeEventListener("resize", resize);
+      if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+    }
+
+    for (var k = 0; k < 5; k++) spawnRocket();
+    requestAnimationFrame(step);
+    return { stop: stop };
   }
 
   function escapeHtml(s) {
